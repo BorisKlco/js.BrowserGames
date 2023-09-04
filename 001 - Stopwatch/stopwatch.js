@@ -1,38 +1,38 @@
 class Stopwatch {
   #time;
   #startTimer;
-  #command;
+  #running;
 
   constructor() {
     this.#time = 0;
     this.#startTimer;
-    this.#command = '';
+    this.#running = false;
+    this.duration = 0;
   }
 
   start() {
-    if (this.#command === 'start') {
-      return console.log('Stopwatch Running! Stop first!');
+    if (this.#running) {
+      return 'Stopwatch Running! Stop first!';
     }
     this.#startTimer = Date.now();
-    this.#command = 'start';
-    return console.log('Stopwatch Start');
+    this.#running = true;
+    return 'Stopwatch Start';
   }
 
   stop() {
     let stop = this.#startTimer;
     this.#startTimer = Date.now();
     this.#time = this.#time + this.#startTimer - stop;
-    this.#command = '';
-    return console.log('Stopwatch Stop', Math.floor(this.#time / 1000), 'sec');
+    this.#running = false;
+    this.duration = Math.floor(this.#time / 100) / 10;
+    return 'Stopwatch Stop';
+  }
+
+  reset() {
+    this.#time = 0;
+    this.#startTimer = 0;
+    this.#running = false;
+    this.duration = 0;
+    return 'Stopwatch reseted';
   }
 }
-
-const sw = new Stopwatch();
-
-sw.start();
-
-console.log('sleep for 4 sec');
-
-setTimeout(() => {
-  sw.stop();
-}, 4000);
