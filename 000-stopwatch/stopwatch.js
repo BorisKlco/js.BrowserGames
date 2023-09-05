@@ -2,12 +2,12 @@ import '../style.css';
 
 export class Stopwatch {
   #time;
-  #startTimer;
+  startTimer;
   #running;
 
   constructor() {
     this.#time = 0;
-    this.#startTimer;
+    this.startTimer;
     this.#running = false;
     this.duration = 0;
   }
@@ -16,15 +16,15 @@ export class Stopwatch {
     if (this.#running) {
       return 'Stopwatch Running! Stop first!';
     }
-    this.#startTimer = Date.now();
+    this.startTimer = Date.now();
     this.#running = true;
     return 'Stopwatch Start';
   }
 
   stop() {
-    let stop = this.#startTimer;
-    this.#startTimer = Date.now();
-    this.#time = this.#time + this.#startTimer - stop;
+    let stop = this.startTimer;
+    this.startTimer = Date.now();
+    this.#time = this.#time + this.startTimer - stop;
     this.#running = false;
     this.duration = Math.floor(this.#time / 100) / 10;
     return 'Stopwatch Stop';
@@ -32,7 +32,7 @@ export class Stopwatch {
 
   reset() {
     this.#time = 0;
-    this.#startTimer = 0;
+    this.startTimer = 0;
     this.#running = false;
     this.duration = 0;
     return 'Stopwatch reseted';
@@ -41,9 +41,15 @@ export class Stopwatch {
 
 const sw = new Stopwatch();
 
+function currentDuration() {
+  let time = Date.now() - sw.startTimer;
+  document.querySelector('#duration').innerHTML = `${time}s`;
+}
+
 function start() {
   document.querySelector('#status').innerHTML = `Starting`;
   sw.start();
+  setInterval(currentDuration(), 100);
 }
 function stop() {
   document.querySelector('#status').innerHTML = `Stopping`;
@@ -63,17 +69,23 @@ function setDuration(time) {
 document.querySelector('#app').innerHTML = `
   <div>
     <h1>js.Stopwatch</h1>
+    <a href="../">Go back</a>
     <div class="card">
       <button id="reset" type="button">Reset</button>
       <p id="status">Status</p>
-      <p id="duration">0s</p>
+      <p id="duration">0</p>
       <button id="start" type="button">Start</button>
       <button id="stop" type="button">Stop</button>
+      <button id="test" type="button">Test</button>
     </div>
-    <a href="../">Go back</a>
   </div>
 `;
 
 document.querySelector('#start').addEventListener('click', () => start());
 document.querySelector('#stop').addEventListener('click', () => stop());
 document.querySelector('#reset').addEventListener('click', () => reset());
+document
+  .querySelector('#test')
+  .addEventListener('click', () =>
+    setInterval(console.log(currentDuration()), 100)
+  );
