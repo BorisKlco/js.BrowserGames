@@ -57,4 +57,4 @@ function animate() {
   }
 }
 
-setInterval(() => requestAnimationFrame(animate), 60);
+setInterval(() => requestAnimationFrame(animate), 40);
