@@ -6,6 +6,6 @@ document.querySelector('#app').innerHTML = `
     <p class="read-the-docs">
       Text
     </p>
-    <a href="./001-Stopwatch">StopWatch - class excersie</a>
+    <a href="/001-stopwatch/index.html">StopWatch - class excersie</a>
   </div>
 `;

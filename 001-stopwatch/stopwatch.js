@@ -1,3 +1,5 @@
+import '../style.css';
+
 export class Stopwatch {
   #time;
   #startTimer;
@@ -58,13 +60,9 @@ function setDuration(time) {
   document.querySelector('#duration').innerHTML = `${time}s`;
 }
 
-document.querySelector('#stopwatch').innerHTML = `
+document.querySelector('#app').innerHTML = `
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-    </a>
-    <h1>Hello Vite!</h1>
+    <h1>js.Stopwatch</h1>
     <div class="card">
       <button id="reset" type="button">Reset</button>
       <p id="status">Status</p>
@@ -72,9 +70,7 @@ document.querySelector('#stopwatch').innerHTML = `
       <button id="start" type="button">Start</button>
       <button id="stop" type="button">Stop</button>
     </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
+    <a href="../">Go back</a>
   </div>
 `;
 
