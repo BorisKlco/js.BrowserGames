@@ -10,6 +10,8 @@ const animationFrames = new Image();
 animationFrames.src = 'anim.png';
 let x = 0;
 let y = 0;
+let gameSpeed = 0;
+const gameSlowingRatio = 3;
 
 function animate() {
   ctx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
@@ -24,10 +26,13 @@ function animate() {
     S_WIDTH,
     S_HEIGHT
   );
-  x++;
-  if (x > 6) {
-    x = 0;
+  if (gameSpeed % gameSlowingRatio == 0) {
+    x++;
+    if (x > 6) {
+      x = 0;
+    }
   }
+  gameSpeed++;
   requestAnimationFrame(animate);
 }
 
