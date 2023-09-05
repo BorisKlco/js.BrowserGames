@@ -1,12 +1,12 @@
 import '../style.css';
 
 export class Stopwatch {
-  #time;
+  time;
   startTimer;
   #running;
 
   constructor() {
-    this.#time = 0;
+    this.time = 0;
     this.startTimer;
     this.#running = false;
     this.duration = 0;
@@ -24,14 +24,14 @@ export class Stopwatch {
   stop() {
     let stop = this.startTimer;
     this.startTimer = Date.now();
-    this.#time = this.#time + this.startTimer - stop;
+    this.time = this.time + this.startTimer - stop;
     this.#running = false;
-    this.duration = Math.floor(this.#time / 100) / 10;
+    this.duration = Math.floor(this.time / 100) / 10;
     return 'Stopwatch Stop';
   }
 
   reset() {
-    this.#time = 0;
+    this.time = 0;
     this.startTimer = 0;
     this.#running = false;
     this.duration = 0;
@@ -44,7 +44,7 @@ let durationTimer;
 
 function updateDuration() {
   document.querySelector('#duration').innerHTML = `${
-    Math.floor((Date.now() - sw.startTimer) / 100) / 10
+    Math.floor((Date.now() + sw.time - +sw.startTimer) / 100) / 10
   }s`;
 }
 
