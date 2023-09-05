@@ -40,20 +40,27 @@ export class Stopwatch {
 }
 
 const sw = new Stopwatch();
+let durationTimer;
 
-function currentDuration() {
-  let time = Date.now() - sw.startTimer;
-  document.querySelector('#duration').innerHTML = `${time}s`;
+function updateDuration() {
+  document.querySelector('#duration').innerHTML = `${
+    Math.floor((Date.now() - sw.startTimer) / 100) / 10
+  }s`;
 }
 
 function start() {
   document.querySelector('#status').innerHTML = `Starting`;
   sw.start();
-  setInterval(currentDuration(), 100);
+  if (!durationTimer) {
+    durationTimer = setInterval(updateDuration, 100);
+  }
 }
+
 function stop() {
   document.querySelector('#status').innerHTML = `Stopping`;
   sw.stop();
+  clearInterval(durationTimer);
+  durationTimer = null;
   setDuration(sw.duration);
 }
 
@@ -76,7 +83,6 @@ document.querySelector('#app').innerHTML = `
       <p id="duration">0</p>
       <button id="start" type="button">Start</button>
       <button id="stop" type="button">Stop</button>
-      <button id="test" type="button">Test</button>
     </div>
   </div>
 `;
@@ -84,8 +90,3 @@ document.querySelector('#app').innerHTML = `
 document.querySelector('#start').addEventListener('click', () => start());
 document.querySelector('#stop').addEventListener('click', () => stop());
 document.querySelector('#reset').addEventListener('click', () => reset());
-document
-  .querySelector('#test')
-  .addEventListener('click', () =>
-    setInterval(console.log(currentDuration()), 100)
-  );
