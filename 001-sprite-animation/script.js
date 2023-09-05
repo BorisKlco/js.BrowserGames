@@ -13,6 +13,31 @@ let y = 0;
 let gameSpeed = 0;
 const gameSlowingRatio = 3;
 
+// function animate() {
+//   ctx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
+//   ctx.drawImage(
+//     animationFrames,
+//     x * S_WIDTH,
+//     y * S_HEIGHT,
+//     S_WIDTH,
+//     S_HEIGHT,
+//     0,
+//     0,
+//     S_WIDTH,
+//     S_HEIGHT
+//   );
+//   if (gameSpeed % gameSlowingRatio == 0) {
+//     x++;
+//     if (x > 6) {
+//       x = 0;
+//     }
+//   }
+//   gameSpeed++;
+//   requestAnimationFrame(animate);
+// }
+
+// animate();
+
 function animate() {
   ctx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
   ctx.drawImage(
@@ -26,14 +51,10 @@ function animate() {
     S_WIDTH,
     S_HEIGHT
   );
-  if (gameSpeed % gameSlowingRatio == 0) {
-    x++;
-    if (x > 6) {
-      x = 0;
-    }
+  x++;
+  if (x > 6) {
+    x = 0;
   }
-  gameSpeed++;
-  requestAnimationFrame(animate);
 }
 
-animate();
+setInterval(() => requestAnimationFrame(animate), 60);
