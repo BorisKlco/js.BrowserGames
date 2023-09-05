@@ -57,11 +57,13 @@ function start() {
 }
 
 function stop() {
-  document.querySelector('#status').innerHTML = `Stopping`;
-  sw.stop();
-  clearInterval(durationTimer);
-  durationTimer = null;
-  setDuration(sw.duration);
+  if (durationTimer) {
+    document.querySelector('#status').innerHTML = `Stopping`;
+    sw.stop();
+    clearInterval(durationTimer);
+    durationTimer = null;
+    setDuration(sw.duration);
+  }
 }
 
 function reset() {
@@ -80,7 +82,7 @@ document.querySelector('#app').innerHTML = `
     <div class="card">
       <button id="reset" type="button">Reset</button>
       <p id="status">Status</p>
-      <p id="duration">0</p>
+      <p id="duration">0s</p>
       <button id="start" type="button">Start</button>
       <button id="stop" type="button">Stop</button>
     </div>
