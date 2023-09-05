@@ -77,14 +77,14 @@ function setDuration(time) {
 
 document.querySelector('#app').innerHTML = `
   <div>
-    <h1>js.Stopwatch</h1>
+    <h1>js.⏱</h1>
     <a href="../">Go back</a>
     <div class="card">
       <button id="reset" type="button">Reset</button>
       <p id="status">Status</p>
-      <p id="duration">0s</p>
+      <p id="duration">0s</p> 
       <button id="start" type="button">Start</button>
-      <button id="stop" type="button">Stop</button>
+      <button id="stop" type="button">Pause</button>
     </div>
   </div>
 `;

@@ -43,6 +43,18 @@ h1 {
   text-align: center;
 }
 
+#duration {
+  margin: 1rem 0;
+  font-size: large;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+#duration:hover {
+  transform: scale(1.25);
+  transition: all 50ms linear;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
