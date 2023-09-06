@@ -18,6 +18,9 @@ dropdown.addEventListener('change', (e) => {
   playerState = e.target.value;
 });
 
+//last img in file is same as first ?!
+const animateAdjustmentFix = 1;
+
 const animate = [
   {
     type: 'idle',
@@ -66,11 +69,11 @@ let animationFrames = [];
 animate.forEach((item, index) => {
   let frame = {
     type: item.type,
-    frames: item.frames,
+    frames: item.frames - animateAdjustmentFix,
     frame: [],
   };
 
-  for (let i = 0; i < item.frames; i++) {
+  for (let i = 0; i < item.frames - animateAdjustmentFix; i++) {
     let x = i * S_WIDTH;
     let y = index * S_HEIGHT;
     frame.frame.push({ x: x, y: y });
