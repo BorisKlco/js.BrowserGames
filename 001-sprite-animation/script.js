@@ -10,7 +10,7 @@ const animationFramesImg = new Image();
 animationFramesImg.src = 'anim.png';
 
 let currentFrame = 0;
-const straggerFrame = 5;
+const straggerFrame = 6;
 let playerState = 'idle';
 let dropdown = document.getElementById('dropdown');
 

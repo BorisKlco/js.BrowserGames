@@ -9,10 +9,14 @@
   <body class="h-screen">
     <div class="grid place-content-center gap-4 h-full">
       <h1 class="text-4xl text-center font-bold">js.SpriteAnimation 🏃‍♂️</h1>
-      <div>
-        <label for="animation">Animation: </label>
+      <div class="mx-auto my-3 p-2">
+        <label for="animation" class="text-xl font-semibold">Animation: </label>
 
-        <select name="animation" id="dropdown"></select>
+        <select
+          name="animation"
+          id="dropdown"
+          class="px-3 py-2 rounded-md border"
+        ></select>
       </div>
       <canvas id="box" class="border border-black"></canvas>
       <a class="text-2xl text-center" href="../">🔙</a>
