@@ -1,11 +1,11 @@
 const canvas = document.getElementById('box');
 const ctx = canvas.getContext('2d');
 
-// const S_WIDTH = 573;
-// const S_HEIGHT = 523;
+const S_WIDTH = 573;
+const S_HEIGHT = 523;
 
-const animationFrames = new Image();
-animationFrames.src = 'anim.png';
+const animationFramesImg = new Image();
+animationFramesImg.src = 'anim.png';
 
 const animate = [
   {
@@ -50,7 +50,7 @@ const animate = [
   },
 ];
 
-class Game {
+class Character {
   constructor(
     cWidth,
     cHeight,
@@ -103,28 +103,31 @@ class Game {
     return `Game speed changed to ${this.gameSpeed}fps`;
   }
 
-  render(type) {
-    let typeAnimation = this.animation.filter((item) => item.type === type);
-    if (typeAnimation.length) {
-      typeAnimation[0].frame.forEach((item) => {
-        ctx.clearRect(0, 0, this.cWidth, this.cHeight);
-        ctx.drawImage(
-          this.animationImage,
-          item.x,
-          item.y,
-          this.frameWidth,
-          this.frameHeight,
-          0,
-          0,
-          this.frameWidth,
-          this.frameHeight
-        );
-      });
-    }
-  }
+  // render(type) {
+  //   let [typeAnimation] = this.animation.filter((item) => item.type === type);
+  //   console.log(typeAnimation);
+  //   let x = 0;
+  //   if (typeAnimation) {
+  //     while (x < typeAnimation.frames - 1) {
+  //       ctx.clearRect(0, 0, this.cWidth, this.cHeight);
+  //       ctx.drawImage(
+  //         this.animationImage,
+  //         typeAnimation.frame[x].x,
+  //         typeAnimation.frame[0].y,
+  //         this.frameWidth,
+  //         this.frameHeight,
+  //         0,
+  //         0,
+  //         this.frameWidth,
+  //         this.frameHeight
+  //       );
+  //       x++;
+  //     }
+  //   }
+  // }
 }
 
-const g = new Game(600, 600, 'anim.png', 573, 523, 2, animate);
+const g = new Character(600, 600, 'anim.png', 573, 523, 2, animate);
 
 // function animate() {
 //   ctx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
@@ -151,12 +154,18 @@ const g = new Game(600, 600, 'anim.png', 573, 523, 2, animate);
 
 // animate();
 
-// function animate() {
-//   ctx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
+// let animationFrames = g.getFrames();
+// let x = 0;
+// function render() {
+//   let [currentFrame] = animationFrames.filter((item) => item.type == 'idle');
+//   let gameSpeed = 0;
+//   let gameSlowingRatio = 2;
+//   console.log(x, currentFrame.frame[x].x, currentFrame.frame[0].y);
+//   ctx.clearRect(0, 0, 600, 600);
 //   ctx.drawImage(
-//     animationFrames,
-//     x * S_WIDTH,
-//     y * S_HEIGHT,
+//     animationFramesImg,
+//     currentFrame.frame[x].x,
+//     currentFrame.frame[0].y,
 //     S_WIDTH,
 //     S_HEIGHT,
 //     0,
@@ -164,10 +173,15 @@ const g = new Game(600, 600, 'anim.png', 573, 523, 2, animate);
 //     S_WIDTH,
 //     S_HEIGHT
 //   );
+
 //   x++;
-//   if (x > 6) {
+//   console.log('HUH');
+//   if (x > currentFrame.frames - 1) {
 //     x = 0;
 //   }
+
+//   //requestAnimationFrame(render);
 // }
 
+// render();
 // setInterval(() => requestAnimationFrame(animate), 40);
