@@ -1,8 +1,8 @@
 const canvas = document.getElementById('box');
 const ctx = canvas.getContext('2d');
 
-const S_WIDTH = 6876 / 12 + 2;
-const S_HEIGHT = 5230 / 10 + 2;
+// const S_WIDTH = 573;
+// const S_HEIGHT = 523;
 
 const animationFrames = new Image();
 animationFrames.src = 'anim.png';
@@ -67,7 +67,7 @@ class Game {
     this.image = image;
     this.frameWidth = frameWidth + margin;
     this.frameHeight = frameHeight + margin;
-    this.gameSpeed = 3;
+    this.gameSpeed = 25;
     this.animate = animate;
     this.animation = [];
 
@@ -100,9 +100,31 @@ class Game {
 
   setSpeed(speed) {
     this.gameSpeed = speed;
-    return `Game speed changed to ${this.gameSpeed}`;
+    return `Game speed changed to ${this.gameSpeed}fps`;
+  }
+
+  render(type) {
+    let typeAnimation = this.animation.filter((item) => item.type === type);
+    if (typeAnimation.length) {
+      typeAnimation[0].frame.forEach((item) => {
+        ctx.clearRect(0, 0, this.cWidth, this.cHeight);
+        ctx.drawImage(
+          this.animationImage,
+          item.x,
+          item.y,
+          this.frameWidth,
+          this.frameHeight,
+          0,
+          0,
+          this.frameWidth,
+          this.frameHeight
+        );
+      });
+    }
   }
 }
+
+const g = new Game(600, 600, 'anim.png', 573, 523, 2, animate);
 
 // function animate() {
 //   ctx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
