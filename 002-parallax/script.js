@@ -2,7 +2,7 @@ const canvas = document.querySelector('#box');
 const ctx = canvas.getContext('2d');
 
 const C_W = (canvas.width = 800);
-const C_H = (canvas.height = 700);
+const C_H = (canvas.height = 480);
 const gameSpeed = 5;
 
 const bg1_color = new Image();
@@ -24,13 +24,7 @@ class Layer {
     this.width = 1600;
     this.height = 480;
     this.image = image;
-    this.speed = gameSpeed + speedRatio;
-
-    image.onload = () => {
-      this.x2 = image.width;
-      this.width = image.width;
-      this.height = image.height;
-    };
+    this.speed = gameSpeed * speedRatio;
   }
 
   getStats() {
@@ -54,12 +48,20 @@ class Layer {
   }
 }
 
-const l = new Layer(bg4_city, 5);
+const l1 = new Layer(bg1_color, 0.1);
+const l2 = new Layer(bg2_blur, 0.25);
+const l3 = new Layer(bg3_sky, 0.33);
+const l4 = new Layer(bg4_city, 0.5);
+const l5 = new Layer(bg5_ground, 1);
+
+const gameObject = [l1, l2, l3, l4, l5];
 
 function render() {
   ctx.clearRect(0, 0, C_W, C_H);
-  l.update();
-  l.draw();
+  gameObject.forEach((object) => {
+    object.update();
+    object.draw();
+  });
   requestAnimationFrame(render);
 }
 
