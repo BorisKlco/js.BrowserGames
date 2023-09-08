@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 const C_W = (canvas.width = 800);
 const C_H = (canvas.height = 480);
 const gameSpeed = 5;
+let currentFrame = 0;
 
 const bg1_color = new Image();
 bg1_color.src = 'img/layer-1.png';
@@ -20,7 +21,6 @@ class Layer {
   constructor(image, speedRatio) {
     this.x = 0;
     this.y = 0;
-    this.x2 = 1600;
     this.width = 1600;
     this.height = 480;
     this.image = image;
@@ -32,19 +32,18 @@ class Layer {
   }
 
   update() {
-    if (this.x <= -this.width) {
-      this.x = this.width + this.x2 - this.speed;
-    }
-    if (this.x2 <= -this.width) {
-      this.x2 = this.width + this.x - this.speed;
-    }
-    this.x = Math.floor(this.x - this.speed);
-    this.x2 = Math.floor(this.x2 - this.speed);
+    this.x = (currentFrame * this.speed) % this.width;
   }
 
   draw() {
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-    ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);
+    ctx.drawImage(
+      this.image,
+      this.x + this.width,
+      this.y,
+      this.width,
+      this.height
+    );
   }
 }
 
@@ -62,6 +61,7 @@ function render() {
     object.update();
     object.draw();
   });
+  currentFrame--;
   requestAnimationFrame(render);
 }
 
