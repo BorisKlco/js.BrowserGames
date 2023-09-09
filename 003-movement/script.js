@@ -42,8 +42,10 @@ class Enemy {
         ? (this.frameCounter = 0)
         : this.frameCounter++;
       this.frameCounter % this.slides == 0 ? (this.x += this.w) : null;
-      this.positionX += Math.floor(Math.random() * 3 - 1);
-      this.positionY += Math.floor(Math.random() * 3 - 1);
+      if (0 < this.positionX && this.positionX < CW) {
+        this.positionX += Math.floor(Math.random() * 3 - 1);
+        this.positionY += Math.floor(Math.random() * 3 - 1);
+      }
     } else {
       this.x = 0;
     }
@@ -64,7 +66,7 @@ class Enemy {
   }
 }
 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 5; i++) {
   enemies.push(new Enemy('enemy1.png', 6));
 }
 
