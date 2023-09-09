@@ -16,15 +16,18 @@ class EnemyTwo {
     this.height = this.sh / this.ratio;
     this.x = Math.random() * (CW - this.width);
     this.y = Math.random() * (CH - this.height);
-    this.speed = Math.random() * 4 + 2;
+    this.speed = Math.random() * 2 + 1;
     this.currentFrame = 0;
     this.gameSpeed = 0;
-    this.animationSpeed = Math.floor(Math.random() * 6 + 2);
+    this.animationSpeed = Math.floor(Math.random() * 8 + 4);
+    this.angle = Math.random() * 2;
   }
 
   updateAnimation() {
-    this.x += Math.random() * 2 - 1;
-    this.y += Math.random() * 2 - 1;
+    this.x -= this.speed;
+    this.y += Math.sin(this.angle) * Math.random() * 2;
+    this.angle += Math.random() * 0.2;
+    this.x + this.width < 0 ? (this.x = CW) : null;
     if (this.gameSpeed % this.animationSpeed === 0) {
       this.currentFrame > 4 ? (this.currentFrame = 0) : this.currentFrame++;
     }
@@ -152,7 +155,7 @@ class EnemyTwo {
 //   }
 // }
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 5; i++) {
   enemies.push(new EnemyTwo('enemy2.png'));
 }
 
