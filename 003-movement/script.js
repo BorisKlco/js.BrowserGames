@@ -155,7 +155,7 @@ class EnemyTwo {
 //   }
 // }
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 50; i++) {
   enemies.push(new EnemyTwo('enemy2.png'));
 }
 
