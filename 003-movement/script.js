@@ -16,7 +16,7 @@ class EnemyThree {
     this.height = this.sh / this.ratio;
     this.x = Math.random() * (CW - this.width);
     this.y = Math.random() * (CH - this.height);
-    this.speed = Math.random() * 200;
+    this.speed = Math.random() * 100 + 25;
     this.currentFrame = 0;
     this.gameSpeed = 0;
     this.animationSpeed = Math.floor(Math.random() * 8 + 4);
@@ -55,7 +55,7 @@ class EnemyThree {
   }
 }
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 5; i++) {
   enemies.push(new EnemyThree('enemy3.png'));
 }
 
