@@ -5,33 +5,37 @@ const CW = (canvas.width = 800);
 const CH = (canvas.height = 480);
 const enemies = [];
 
-class EnemyThree {
+class EnemyFour {
   constructor(img) {
     this.image = new Image();
     this.image.src = img;
-    this.sw = 218;
-    this.sh = 177;
+    this.sw = 213;
+    this.sh = 213;
     this.ratio = Math.floor(Math.random() * 4 + 2);
     this.width = this.sw / this.ratio;
     this.height = this.sh / this.ratio;
     this.x = Math.random() * (CW - this.width);
     this.y = Math.random() * (CH - this.height);
-    this.speed = Math.random() * 100 + 25;
+    this.newX = Math.random() * (CW - this.width);
+    this.newY = Math.random() * (CH - this.height);
+    this.speed = Math.random() * 150 + 25;
     this.currentFrame = 0;
     this.gameSpeed = 0;
     this.animationSpeed = Math.floor(Math.random() * 8 + 4);
-    this.angle = Math.random() * 2;
+    this.movementSpeed = Math.floor(Math.random() * 200 + 60);
   }
 
   updateAnimation() {
-    this.x =
-      this.speed * Math.sin((this.angle * Math.PI) / 180) -
-      (this.width - CW) / 2;
-    this.y =
-      this.speed * Math.cos((this.angle * Math.PI) / 180) -
-      (this.height - CH) / 2;
-    //this.y += Math.sin(this.angle) * Math.random() * 2;
-    this.angle += Math.random() * 2;
+    if (this.gameSpeed % this.movementSpeed === 0) {
+      this.newX = Math.random() * (CW - this.width);
+      this.newY = Math.random() * (CH - this.height);
+    }
+
+    let dx = this.x - this.newX;
+    let dy = this.y - this.newY;
+    this.x -= dx / 100;
+    this.y -= dy / 100;
+
     this.x + this.width < 0 ? (this.x = CW) : null;
     if (this.gameSpeed % this.animationSpeed === 0) {
       this.currentFrame > 4 ? (this.currentFrame = 0) : this.currentFrame++;
@@ -56,7 +60,7 @@ class EnemyThree {
 }
 
 for (let i = 0; i < 5; i++) {
-  enemies.push(new EnemyThree('enemy3.png'));
+  enemies.push(new EnemyFour('enemy4.png'));
 }
 
 const render = () => {
@@ -69,6 +73,56 @@ const render = () => {
 };
 
 render();
+
+// class EnemyThree {
+//   constructor(img) {
+//     this.image = new Image();
+//     this.image.src = img;
+//     this.sw = 218;
+//     this.sh = 177;
+//     this.ratio = Math.floor(Math.random() * 4 + 2);
+//     this.width = this.sw / this.ratio;
+//     this.height = this.sh / this.ratio;
+//     this.x = Math.random() * (CW - this.width);
+//     this.y = Math.random() * (CH - this.height);
+//     this.speed = Math.random() * 150 + 25;
+//     this.currentFrame = 0;
+//     this.gameSpeed = 0;
+//     this.animationSpeed = Math.floor(Math.random() * 8 + 4);
+//     this.angle = Math.random() * 2;
+//   }
+
+//   updateAnimation() {
+//     this.x =
+//       this.speed * Math.sin((this.angle * Math.PI) / 180) -
+//       (this.width - CW) / 2;
+//     this.y =
+//       this.speed * Math.cos((this.angle * Math.PI) / 180) -
+//       (this.height - CH) / 2;
+//     //this.y += Math.sin(this.angle) * Math.random() * 2;
+//     this.angle += Math.random() * 2;
+//     this.x + this.width < 0 ? (this.x = CW) : null;
+//     if (this.gameSpeed % this.animationSpeed === 0) {
+//       this.currentFrame > 4 ? (this.currentFrame = 0) : this.currentFrame++;
+//     }
+
+//     this.gameSpeed++;
+//   }
+
+//   draw() {
+//     ctx.drawImage(
+//       this.image,
+//       this.currentFrame * this.sw,
+//       0,
+//       this.sw,
+//       this.sh,
+//       this.x,
+//       this.y,
+//       this.width,
+//       this.height
+//     );
+//   }
+// }
 
 // class EnemyTwo {
 //   constructor(img) {
