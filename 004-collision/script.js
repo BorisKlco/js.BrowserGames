@@ -4,6 +4,8 @@ const ctx = canvas.getContext('2d');
 const CW = (canvas.width = 500);
 const CH = (canvas.height = 700);
 const src = 'https://www.frankslaboratory.co.uk/downloads/boom.png';
+const soundSrc =
+  'https://opengameart.org/sites/default/files/audio_preview/Jump%201.mp3.ogg';
 const models = [];
 
 class Explosion {
@@ -16,11 +18,14 @@ class Explosion {
     this.y = y - this.h * 0.5;
     this.img = new Image();
     this.img.src = src;
+    this.sound = new Audio();
+    this.sound.src = soundSrc;
     this.frame = 0;
     this.timer = 0;
   }
 
   update() {
+    this.frame == 0 ? this.sound.play() : null;
     this.frame > 5 ? models.shift() : null;
     ++this.timer;
     this.timer % 8 === 0 ? ++this.frame : null;
@@ -41,8 +46,7 @@ class Explosion {
   }
 }
 
-window.addEventListener('click', (e) => {
-  console.log(models);
+canvas.addEventListener('click', (e) => {
   models.push(new Explosion(e.layerX, e.layerY));
 });
 
