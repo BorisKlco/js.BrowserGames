@@ -21,8 +21,9 @@ class Explosion {
   }
 
   update() {
+    this.frame > 5 ? models.shift() : null;
     ++this.timer;
-    this.timer % 10 === 0 ? ++this.frame : null;
+    this.timer % 8 === 0 ? ++this.frame : null;
   }
 
   draw() {
@@ -41,7 +42,7 @@ class Explosion {
 }
 
 window.addEventListener('click', (e) => {
-  console.log(e);
+  console.log(models);
   models.push(new Explosion(e.layerX, e.layerY));
 });
 
