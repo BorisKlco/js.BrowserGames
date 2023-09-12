@@ -11,7 +11,7 @@ let timeNextEnemy = 0;
 let enemyInterval = 500;
 let lastTime = 0;
 
-const enemies = [];
+let enemies = [];
 
 class Enemy {
   constructor() {
@@ -21,10 +21,12 @@ class Enemy {
     this.y = Math.random() * (CH - this.h);
     this.dirx = Math.random() * 5 + 3;
     this.diry = Math.random() * 5 - 2.5;
+    this.delete = false;
   }
 
   update() {
     this.x -= this.dirx;
+    this.x < -this.w ? (this.delete = true) : null;
   }
 
   draw() {
@@ -41,8 +43,9 @@ function render(timestamp) {
     enemies.push(new Enemy());
     timeNextEnemy = 0;
   }
-  [...enemies].map(enemy => enemy.update());
-  [...enemies].map(enemy => enemy.draw())
+  [...enemies].map((enemy) => enemy.update());
+  [...enemies].map((enemy) => enemy.draw());
+  enemies = enemies.filter((enemy) => !enemy.delete);
   requestAnimationFrame(render);
 }
 
