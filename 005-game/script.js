@@ -24,7 +24,7 @@ class Enemy {
     this.h = this.imgh * this.sizeMod;
     this.x = CW;
     this.y = Math.random() * (CH - this.h);
-    this.dirx = Math.random() * 5 + 3;
+    this.dirx = Math.random() * 3 + 1;
     this.diry = Math.random() * 10 - 5;
     this.delete = false;
     this.imgFrame = 0;
@@ -35,7 +35,7 @@ class Enemy {
   update(deltatime) {
     this.x -= this.dirx;
     this.y -=
-      this.imgFrame * 2 * Math.sin((this.diry * this.imgFrame * Math.PI) / 180);
+      this.imgFrame * Math.sin((this.diry * this.imgFrame * Math.PI) / 180);
     this.x < -this.w ? (this.delete = true) : null;
     this.timer += deltatime;
     if (this.timer > this.timerInterval) {
