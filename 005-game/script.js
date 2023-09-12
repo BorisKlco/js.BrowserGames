@@ -7,6 +7,10 @@ const clickSrc = 'https://www.frankslaboratory.co.uk/downloads/boom.png';
 const CW = (canvas.width = 800);
 const CH = (canvas.height = 600);
 
+let timeNextEnemy = 0;
+let enemyInterval = 500;
+let lastTime = 0;
+
 const enemies = [];
 
 class Enemy {
@@ -28,18 +32,18 @@ class Enemy {
   }
 }
 
-for (let i = 0; i < 10; ++i) {
-  enemies.push(new Enemy());
-}
-
-console.log(enemies);
-function render() {
+function render(timestamp) {
   ctx.clearRect(0, 0, CW, CH);
-  enemies.map((enemy) => {
-    enemy.update();
-    enemy.draw();
-  });
+  let deltatime = timestamp - lastTime;
+  lastTime = timestamp;
+  timeNextEnemy += deltatime;
+  if (timeNextEnemy > enemyInterval) {
+    enemies.push(new Enemy());
+    timeNextEnemy = 0;
+  }
+  [...enemies].map(enemy => enemy.update());
+  [...enemies].map(enemy => enemy.draw())
   requestAnimationFrame(render);
 }
 
-// render();
+render(0);
