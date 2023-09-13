@@ -15,6 +15,7 @@ let lastTime = 0;
 
 let enemies = [];
 let explosion = [];
+let score = 0;
 
 class Explosion {
   constructor(x, y) {
@@ -111,10 +112,19 @@ canvas.addEventListener('click', (e) => {
       if (e.layerY > enemy.y && e.layerY < enemy.y + enemy.h) {
         explosion.push(new Explosion(e.layerX, e.layerY));
         enemy.delete = true;
+        ++score;
       }
     }
   });
 });
+
+function drawScore() {
+  ctx.font = 'Bold 30px Verdana';
+  ctx.fillStyle = 'white';
+  ctx.fillText(`Score: ${score} `, CW / 2 - 50, 50);
+  ctx.fillStyle = 'black';
+  ctx.fillText(`Score: ${score} `, CW / 2 - 51, 49);
+}
 
 function render(timestamp) {
   ctx.clearRect(0, 0, CW, CH);
@@ -125,6 +135,7 @@ function render(timestamp) {
     enemies.push(new Enemy());
     timeNextEnemy = 0;
   }
+  drawScore();
   [...enemies].map((enemy) => enemy.update(deltatime));
   [...enemies].map((enemy) => enemy.draw());
   [...explosion].map((item) => item.update(deltatime));
