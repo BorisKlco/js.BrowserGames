@@ -3,6 +3,8 @@ const ctx = canvas.getContext('2d');
 
 const ravenSrc = 'https://www.frankslaboratory.co.uk/downloads/raven.png';
 const clickSrc = 'https://www.frankslaboratory.co.uk/downloads/boom.png';
+const soundSrc =
+  'https://opengameart.org/sites/default/files/audio_preview/Jump%201.mp3.ogg';
 
 const CW = (canvas.width = 800);
 const CH = (canvas.height = 600);
@@ -12,6 +14,49 @@ let enemyInterval = 1000;
 let lastTime = 0;
 
 let enemies = [];
+let explosion = [];
+
+class Explosion {
+  constructor(x, y) {
+    this.sw = 200;
+    this.sh = 179;
+    this.w = this.sw * 0.5;
+    this.h = this.sw * 0.5;
+    this.x = x - this.w * 0.5;
+    this.y = y - this.h * 0.5;
+    this.img = new Image();
+    this.img.src = clickSrc;
+    this.sound = new Audio();
+    this.sound.src = soundSrc;
+    this.imgFrame = 0;
+    this.timer = 0;
+    this.timerInterval = 120;
+  }
+
+  update(deltatime) {
+    this.timer += deltatime;
+    if (this.timer > this.timerInterval) {
+      this.imgFrame == 0 ? this.sound.play() : null;
+      ++this.imgFrame;
+      this.timer = 0;
+    }
+    this.imgFrame > 5 && explosion.shift();
+  }
+
+  draw() {
+    ctx.drawImage(
+      this.img,
+      this.sw * this.imgFrame,
+      0,
+      this.sw,
+      this.sh,
+      this.x,
+      this.y,
+      this.w,
+      this.h
+    );
+  }
+}
 
 class Enemy {
   constructor() {
@@ -64,6 +109,7 @@ canvas.addEventListener('click', (e) => {
   enemies.filter((enemy) => {
     if (e.layerX > enemy.x && e.layerX < enemy.x + enemy.w) {
       if (e.layerY > enemy.y && e.layerY < enemy.y + enemy.h) {
+        explosion.push(new Explosion(e.layerX, e.layerY));
         enemy.delete = true;
       }
     }
@@ -81,6 +127,8 @@ function render(timestamp) {
   }
   [...enemies].map((enemy) => enemy.update(deltatime));
   [...enemies].map((enemy) => enemy.draw());
+  [...explosion].map((item) => item.update(deltatime));
+  [...explosion].map((item) => item.draw());
   enemies = enemies.filter((enemy) => !enemy.delete);
   requestAnimationFrame(render);
 }
