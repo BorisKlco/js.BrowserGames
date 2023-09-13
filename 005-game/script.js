@@ -63,8 +63,9 @@ class Enemy {
 canvas.addEventListener('click', (e) => {
   enemies.filter((enemy) => {
     if (e.layerX > enemy.x && e.layerX < enemy.x + enemy.w) {
-      console.log(e.layerX, enemy.x, enemy.w);
-      enemy.delete = true;
+      if (e.layerY > enemy.y && e.layerY < enemy.y + enemy.h) {
+        enemy.delete = true;
+      }
     }
   });
 });
